@@ -36,11 +36,11 @@ class MetronomeContainer extends Component {
         let timeSignatureCounter = (this.state.timeSignatureCounter + 1) % 4;
         this.setState({ timeSignatureCounter: timeSignatureCounter });
 
-        if (this.state.timeSignature == "4/4") {
+        if (this.state.timeSignature === "4/4") {
             this.beat();
         }
-        if (this.state.timeSignature == "2/4") {
-            if (timeSignatureCounter == 1 || timeSignatureCounter == 3) {
+        if (this.state.timeSignature === "2/4") {
+            if (timeSignatureCounter === 1 || timeSignatureCounter === 3) {
                 this.beat();
             }
             else {
