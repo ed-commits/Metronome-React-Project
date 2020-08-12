@@ -11,28 +11,29 @@ class MetronomeContainer extends Component {
                 beat: new Audio("/sounds/metro_beat.ogg"),
                 claves: new Audio("/sounds/Metronom Claves.ogg")
             },
-            intervalTime: 1
+            intervalTime: 1,
+            beatLight: false,
+            claveLight: false
         }
-        this.tick = this.tick.bind(this);
-
-        // this.beat = <PlaySound id="beat" soundFile={this.state.soundFiles['beat']} />
-        // this.claves = <PlaySound id="claves" soundFile={this.state.soundFiles['claves']} />
+//        this.switchOff = this.switchOff.bind(this);
+//        this.tick = this.tick.bind(this);
     }
 
-    tick(condition) {
- //       this.state.soundFiles["beat"].play();
-//        this.setState({ beatLight: true });
+    switchOff = () => {
+        this.setState({ beatLight: false, claveLight: false });
+    }
 
-        // trigger PlaySound beat, to play+lightup -- activateMetronome
-        // this.beat.activeMetronome();
-        // condition? <PlaySound id="beat" soundFile={this.state.soundFiles['beat']} /> :
-    }   //             <PlaySound id="claves" soundFile={this.state.soundFiles['claves']} />
+    tick = () => {
+        this.state.soundFiles["beat"].play();
+        this.setState({ beatLight: true });
+        setTimeout(this.switchOff, 1000*0.2);
+    }
 
-    render() {
+    render = () => {
         return (
             <>
-                <PlaySound id="beat" soundFile={this.state.soundFiles['beat']} />
-                <PlaySound id="claves" soundFile={this.state.soundFiles['claves']} />
+                <PlaySound id="beat" circleLightSwitch={this.state.beatLight} />
+                <PlaySound id="claves" circleLightSwitch={this.state.claveLight} />
                 <MetronomeTimer intervalTime={this.state.intervalTime} tick={this.tick}/>
             </>
         )
