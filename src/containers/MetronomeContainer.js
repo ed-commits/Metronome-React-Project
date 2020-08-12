@@ -10,11 +10,11 @@ class MetronomeContainer extends Component {
                 beat: new Audio("/sounds/metro_beat.ogg"),
                 clave: new Audio("/sounds/Metronom Claves.ogg")
             },
-            intervalTime: 1,
             beatLight: false,
             claveLight: false,
             timeSignature: "4/4",
-            timeSignatureCounter: 0
+            timeSignatureCounter: 0,
+            bpm: 60
         }
     }
 
@@ -47,28 +47,47 @@ class MetronomeContainer extends Component {
                 this.clave();
             }
         }
+        if (this.state.timeSignature === "3/4") {
+            if (timeSignatureCounter === 1) {
+                this.clave();
+            }
+            else {
+                this.beat();
+            }
+        }
 
         setTimeout(this.switchOff, 1000 * 0.2);
     }
 
     startTimer = () => {
         this.tick();
-        setInterval(this.tick, this.state.intervalTime * 1000);
+        setTimeout(this.startTimer, this.intervalTime() * 1000);
     }
 
     timeSignature = (event) => {
         this.setState({ timeSignature: event.target.value });
     }
 
+    intervalTime = () => {
+        return 60/this.state.bpm;
+    }
+
+    setBPM = (event) => {
+        this.setState({ bpm: event.target.value });
+    }
+
     render = () => {
         return (
             <>
+                <label for="bpm-slider">Set your BPM</label>
+                <input type="range" id="bpm-slider" name="bpm" min="10" max="200" default="60" onChange={this.setBPM}></input>
                 <PlaySound id="beat" circleLightSwitch={this.state.beatLight} />
                 <PlaySound id="claves" circleLightSwitch={this.state.claveLight} />
                 <button onClick={this.startTimer}>Play</button>
                 <select onChange={this.timeSignature}>
                     <option value="4/4">4/4</option>
                     <option value="2/4">2/4</option>
+                    <option value="3/4">3/4</option>
                 </select>
             </>
         )
