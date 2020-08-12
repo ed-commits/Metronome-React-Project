@@ -47,6 +47,8 @@
 }
 
 .circle-off {
+  display: inline-block;
+
   width: 20px;
   height: 20px;
   -webkit-border-radius: 10px;
@@ -64,6 +66,7 @@
 }
 
 .circle-on {
+  display: inline-block;
   width: 20px;
   height: 20px;
   -webkit-border-radius: 10px;

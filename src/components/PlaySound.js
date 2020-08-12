@@ -7,7 +7,7 @@ class PlaySound extends Component {
             circleLightSwitch: false
         }
         this.circleLight = this.circleLight.bind(this);
-        this.setPlayInterval = this.setPlayInterval.bind(this);
+        this.activateMetronome = this.activateMetronome.bind(this);
         this.playIt = this.playIt.bind(this);
     }
 
@@ -15,7 +15,7 @@ class PlaySound extends Component {
         return this.state.circleLightSwitch ? "circle-on" : "circle-off";
     }
 
-    setPlayInterval() {
+    activateMetronome() {
         this.setState({ circleLightSwitch:  true });
         this.props.soundFile.play();
         setTimeout(this.playIt, 1000*0.3);

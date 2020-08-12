@@ -1,0 +1,11 @@
+Components:
++ MetronomeTimer
++ PlaySound
+
+Controller:
++ MetronomeContainer
+--- MetronomeTimer
+      calls tick() every 1 second
+--- beat: PlaySound
+--- claves: PlaySound
+
