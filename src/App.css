@@ -63,6 +63,9 @@
     border: 2px solid black;
     transition-property: background-image;
     transition-duration: 1s;
+
+    margin: 5px;
+
 }
 
 .circle-on {
@@ -80,4 +83,19 @@
     border: 2px solid black;
     transition-property: background-image;
     transition-duration: 1s;
+
+    margin: 5px;
+}
+
+.metronome-box {
+  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  width: 40ch;
+  padding: 10px;
+}
+
+.light-box {
+  display: flex;
+  justify-content: center;
 }

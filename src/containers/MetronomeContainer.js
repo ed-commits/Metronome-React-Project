@@ -14,7 +14,8 @@ class MetronomeContainer extends Component {
             claveLight: false,
             timeSignature: "4/4",
             timeSignatureCounter: 0,
-            bpm: 60
+            bpm: 60,
+            timer: null
         }
     }
 
@@ -60,8 +61,17 @@ class MetronomeContainer extends Component {
     }
 
     startTimer = () => {
+        if(this.state.timer !== null) {
+            clearTimeout(this.state.timer);
+        }
+
         this.tick();
-        setTimeout(this.startTimer, this.intervalTime() * 1000);
+        this.setState({timer: setTimeout(this.startTimer, this.intervalTime() * 1000)});
+    }
+
+    stopTimer =() => {
+        clearTimeout(this.state.timer);
+        this.setState( { timer: null } );
     }
 
     timeSignature = (event) => {
@@ -69,7 +79,7 @@ class MetronomeContainer extends Component {
     }
 
     intervalTime = () => {
-        return 60/this.state.bpm;
+        return 60 / this.state.bpm;
     }
 
     setBPM = (event) => {
@@ -79,16 +89,21 @@ class MetronomeContainer extends Component {
     render = () => {
         return (
             <>
-                <label for="bpm-slider">Set your BPM</label>
-                <input type="range" id="bpm-slider" name="bpm" min="10" max="200" default="60" onChange={this.setBPM}></input>
-                <PlaySound id="beat" circleLightSwitch={this.state.beatLight} />
-                <PlaySound id="claves" circleLightSwitch={this.state.claveLight} />
-                <button onClick={this.startTimer}>Play</button>
-                <select onChange={this.timeSignature}>
-                    <option value="4/4">4/4</option>
-                    <option value="2/4">2/4</option>
-                    <option value="3/4">3/4</option>
-                </select>
+                <div className="metronome-box">
+                    <label forHTML="bpm-slider">Set your BPM</label>
+                    <input type="range" id="bpm-slider" name="bpm" min="10" max="200" default="60" onChange={this.setBPM}></input>
+                    <div className="light-box">
+                        <PlaySound id="beat" circleLightSwitch={this.state.beatLight} />
+                        <PlaySound id="claves" circleLightSwitch={this.state.claveLight} />
+                    </div>
+                    <button onClick={this.startTimer}>Play</button>
+                    <button onClick={this.stopTimer}>Stop</button>
+                    <select onChange={this.timeSignature}>
+                        <option value="4/4">4/4</option>
+                        <option value="2/4">2/4</option>
+                        <option value="3/4">3/4</option>
+                    </select>
+                </div>
             </>
         )
     }
