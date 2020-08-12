@@ -7,8 +7,8 @@ class MetronomeContainer extends Component {
         super(props);
         this.state = {
             soundFiles: {
-                beat: new Audio("/sounds/metro_beat.ogg"),
-                clave: new Audio("/sounds/Metronom Claves.ogg")
+                beat: new Audio("/sounds/metro_beat.mp3"),
+                clave: new Audio("/sounds/Metronom Claves.mp3")
             },
             beatLight: false,
             claveLight: false,
@@ -90,7 +90,7 @@ class MetronomeContainer extends Component {
         return (
             <>
                 <div className="metronome-box">
-                    <label forHTML="bpm-slider">Set your BPM</label>
+                    <label forhtml="bpm-slider">Set your BPM</label>
                     <input type="range" id="bpm-slider" name="bpm" min="10" max="200" default="60" onChange={this.setBPM}></input>
                     <div className="light-box">
                         <PlaySound id="beat" circleLightSwitch={this.state.beatLight} />
