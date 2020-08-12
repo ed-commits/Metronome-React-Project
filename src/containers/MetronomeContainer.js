@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PlaySound from '../components/PlaySound';
-import MetronomeTimer from '../components/MetronomeTimer';
 
 class MetronomeContainer extends Component {
 
@@ -15,8 +14,6 @@ class MetronomeContainer extends Component {
             beatLight: false,
             claveLight: false
         }
-//        this.switchOff = this.switchOff.bind(this);
-//        this.tick = this.tick.bind(this);
     }
 
     switchOff = () => {
@@ -28,13 +25,18 @@ class MetronomeContainer extends Component {
         this.setState({ beatLight: true });
         setTimeout(this.switchOff, 1000*0.2);
     }
+    
+    startTimer = () => {
+        this.tick();
+        setInterval(this.tick, this.state.intervalTime*1000);
+    }
 
     render = () => {
         return (
             <>
                 <PlaySound id="beat" circleLightSwitch={this.state.beatLight} />
                 <PlaySound id="claves" circleLightSwitch={this.state.claveLight} />
-                <MetronomeTimer intervalTime={this.state.intervalTime} tick={this.tick}/>
+                <button onClick={this.startTimer}>Play</button>
             </>
         )
     }
