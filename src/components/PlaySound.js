@@ -1,19 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 class PlaySound extends Component {
     constructor(props) {
         super(props);
-        //({ soundFile, intervalTime })
+        this.state = {
+            circleLightSwitch: false
+        }
+        this.circleLight = this.circleLight.bind(this);
+        this.setPlayInterval = this.setPlayInterval.bind(this);
         this.playIt = this.playIt.bind(this);
     }
 
-    playIt() {
+    circleLight() {
+        return this.state.circleLightSwitch ? "circle-on" : "circle-off";
+    }
+
+    setPlayInterval() {
+        this.setState({ circleLightSwitch:  true });
         this.props.soundFile.play();
+        setTimeout(this.playIt, 1000*0.3);
+    }
+
+    playIt() {
+        this.setState({ circleLightSwitch:  false });
     }
 
     render() {
         return (
-            <button onClick={this.playIt}>PlayTest!</button>
+            <>
+                <div className={this.circleLight()}></div>
+            </>
         )
     }
 }
